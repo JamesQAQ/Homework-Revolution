@@ -10,7 +10,7 @@
     if (mysqli_stmt_fetch($stmt)){
       if ($input == NULL)
           $input = 0;
-      if ($input == NULL)
+      if ($output == NULL)
           $output = 0;
       echo json_encode(array("input"=>$input, "output"=>$output, "total"=>$input + $output));
     }
