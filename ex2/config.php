@@ -10,6 +10,8 @@
   define("DB_USER" , "radius");
   define("DB_PASS" , "radpass");
   define("COOKIE_TIME" , "21600");
+  define("RADIUS_SECRET" , "testing123");
+  define("UAM_SECRET" , "wasa");
 
   include_once "include/functions.php";
   include_once "include/setup.php";
