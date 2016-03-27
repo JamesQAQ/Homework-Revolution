@@ -1,0 +1,15 @@
+@charset "UTF-8";
+/* line 3, ../sass/main.scss */
+* {
+  margin: 0;
+  padding: 0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 9, ../sass/main.scss */
+html, body {
+  height: 100%;
+  font: 14px "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif,"微軟正黑體";
+}

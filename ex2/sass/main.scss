@@ -1,0 +1,12 @@
+@import "compass/css3";
+
+*{
+  margin: 0;
+  padding: 0;
+  @include box-sizing(border-box);
+}
+
+html, body{
+  height: 100%;
+  font: 14px "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif,"微軟正黑體";
+}
