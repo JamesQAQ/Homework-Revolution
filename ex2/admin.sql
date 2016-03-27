@@ -20,3 +20,11 @@ CREATE TABLE IF NOT EXISTS `Sessions` (
   `username` varchar(64) NOT NULL,
   `LoginTime` int(12) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+
+CREATE TABLE IF NOT EXISTS `Limits` (
+  `id` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `username` varchar(64) NOT NULL,
+  `TimeLimit` int(12) NOT NULL,
+  `TrafficLimit` int(12) NOT NULL,
+  `Status` varchar(1) NOT NULL DEFAULT '1',
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
