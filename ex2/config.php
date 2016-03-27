@@ -12,8 +12,9 @@
   define("COOKIE_TIME" , "21600");
   define("RADIUS_SECRET" , "testing123");
   define("UAM_SECRET" , "wasa");
+  define("ROOT_PATH" , "/var/www/html/");
 
-  include_once "include/functions.php";
-  include_once "include/setup.php";
+  include_once ROOT_PATH."include/functions.php";
+  include_once ROOT_PATH."include/setup.php";
 
 ?>

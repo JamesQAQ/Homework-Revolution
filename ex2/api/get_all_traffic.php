@@ -1,9 +1,9 @@
 <?php
-  include "config.php";
+  include "../config.php";
 
-  $stmt = mysqli_prepare($MYSQLI, "SELECT `username`, SUM(`acctinputoctets`), SUM(`acctoutputoctets`) FROM `radacct` WHERE date_format(`acctstarttime`, '%Y-%m-%d') = date_format(now(),'%Y-%m-%d') GROUP BY `username`");
+  $stmt = mysqli_prepare($MYSQLI, "SELECT `username`, SUM(`acctinputoctets`), SUM(`acctoutputoctets`), SUM(`acctsessiontime`) FROM `radacct` WHERE date_format(`acctstarttime`, '%Y-%m-%d') = date_format(now(),'%Y-%m-%d') GROUP BY `username`");
   my_mysqli_stmt_execute($stmt);
-  mysqli_stmt_bind_result($stmt, $username, $input, $output);
+  mysqli_stmt_bind_result($stmt, $username, $input, $output, $time);
 
   $res = array();
 
@@ -17,6 +17,7 @@
     $tmp['input'] = $input;
     $tmp['output'] = $output;
     $tmp['total'] = $input + $output;
+    $tmp['time'] = $time;
     array_push($res, $tmp);
   }
   mysqli_stmt_close($stmt);
