@@ -12,6 +12,8 @@
           $input = 0;
       if ($output == NULL)
           $output = 0;
+      if ($time == NULL)
+          $time = 0;
       echo json_encode(array("username"=>$_GET['username'], "input"=>$input, "output"=>$output, "total"=>$input + $output, "time"=>$time));
     }
     else{

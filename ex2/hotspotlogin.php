@@ -130,7 +130,7 @@
 ?>
     <div class="row center">
       <h4>登入失敗</h4>
-      <a href="http://<?php echo $host; ?>/prelogin?userurl=<?php echo $_GET['userurl']; ?>">
+      <a href="<?php echo $prelogin_url; ?>">
         請在嘗試一次
       </a>
     </div>    
@@ -145,7 +145,7 @@
 ?>
     <div class="row center">
       <h4>登入成功</h4>
-      <a href="http://<?php echo $host; ?>/prelogin?userurl=<?php echo $_GET['userurl']; ?>">
+      <a href="<?php echo $logoff_url; ?>">
         登出
       </a>
     </div>
@@ -156,7 +156,7 @@
             <th>日流入量</th>
             <th>日流出量</th>
             <th>日總量</th>
-            <th>日始用時間</th>
+            <th>日使用時間</th>
         </tr>
       </thead>
 
@@ -182,11 +182,11 @@
 
 <?php
   function display_logoff() {
-    $host = $_GET['uamip'].':'.$_GET['uamport'];
+    $prelogin_url = 'http://'.$_GET['uamip'].':'.$_GET['uamport'].'/prelogin?userurl='.$_GET['userurl'];
 ?>
     <div class="row center">
       <h4>登出成功</h4>
-      <a href="http://<?php echo $host; ?>/prelogin?userurl=<?php echo $_GET['userurl']; ?>">
+      <a href="<?php echo $prelogin_url; ?>">
         使用其他帳號登入
       </a>
     </div>  

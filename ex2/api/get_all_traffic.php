@@ -13,6 +13,8 @@
         $input = 0;
     if ($output == NULL)
         $output = 0;
+    if ($time == NULL)
+        $time = 0;
     $tmp['username'] = $username;
     $tmp['input'] = $input;
     $tmp['output'] = $output;
