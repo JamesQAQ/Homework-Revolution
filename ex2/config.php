@@ -12,6 +12,7 @@
   define("COOKIE_TIME" , "21600");
   define("RADIUS_SECRET" , "testing123");
   define("UAM_SECRET" , "wasa");
+  define("UAM_IP" , "192.168.182.1");
   define("ROOT_PATH" , "/var/www/html/");
 
   include_once ROOT_PATH."include/functions.php";

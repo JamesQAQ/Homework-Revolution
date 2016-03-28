@@ -77,4 +77,8 @@
     return $time <= $time_limit;
   }
 
+  function uam_disconnect($username){
+    exec("echo User-Name=".$username." | radclient -x ".UAM_IP." disconnect ".RADIUS_SECRET);
+  }
+
 ?>
