@@ -159,3 +159,51 @@ function register(){
     }
   });
 }
+
+function process_limit(td){
+  var tmp = td.innerText.split(" ");
+  var input = $("<input>");
+  input.addClass("origin-input");
+  input.attr("type", "number");
+  input.attr("value", tmp[0]);
+  console.log(input);
+  $(td).html("");
+  $(td).append(input);
+  $(td).append(" " + tmp[1]);
+}
+
+function edit_limit(btn){
+  var traffic_limit_td = $(btn).parent().parent().children('td')[5];
+  var time_limit_td = $(btn).parent().parent().children('td')[6];
+  process_limit(traffic_limit_td);
+  process_limit(time_limit_td);
+  $(btn).attr("onclick", "javascript:update_limit(this)");
+  $(btn).html("送出");
+}
+
+function update_limit(btn){
+  var username = $(btn).parent().parent().children('td')[0].innerText;
+  var traffic_limit = $($(btn).parent().parent().children('td')[5]).children("input").val();
+  var time_limit = $($(btn).parent().parent().children('td')[6]).children("input").val()
+  $.ajax({
+    type: "POST",
+    url: "/api/update_limit.php",
+    cache: false,
+    async: false,
+    data:{
+          "username": username,
+          "traffic": traffic_limit,
+          "time": time_limit
+         },
+    dataType: "json",
+    success: function(res)
+    {
+      location.reload();
+    },
+    error: function (xhr, ajaxOptions, thrownError)
+    {
+      console.log(xhr);
+      Materialize.toast('系統錯誤，請聯絡管理員。', 4000);
+    }
+  });
+}

@@ -170,14 +170,14 @@
     <table class="traffic-table centered striped">
       <thead>
         <tr>
-            <th>帳號名稱</th>
-            <th>上傳量</th>
-            <th>下載量</th>
-            <th>總量</th>
-            <th>使用時間</th>
-            <th>流量限制</th>
-            <th>時間限制</th>
-            <th>編輯</th>
+            <th style="width: 12.5%;">帳號名稱</th>
+            <th style="width: 12.5%;">上傳量</th>
+            <th style="width: 12.5%;">下載量</th>
+            <th style="width: 12.5%;">總量</th>
+            <th style="width: 12.5%;">使用時間</th>
+            <th style="width: 12.5%;">流量限制</th>
+            <th style="width: 12.5%;">時間限制</th>
+            <th style="width: 12.5%;">編輯</th>
         </tr>
       </thead>
       <tbody>
@@ -190,23 +190,31 @@
               <td>0 B</td>
               <td>0 B</td>
               <td>0 秒</td>
-              <td>
+              <td style="padding: 0px;">
                 <?php
                   if ($limit['TrafficLimit'] === -1)
                     echo '∞';
                   else
-                    echo number_format($limit['TrafficLimit'] / (1024 * 1024), 0, '.', '')." MB"; 
+                    echo number_format($limit['TrafficLimit'] / (1024 * 1024), 0, '.', '')." MB";
                 ?>
               </td>
-              <td>
+              <td style="padding: 0px;">
                 <?php
                   if ($limit['TimeLimit'] === -1)
                     echo '∞';
                   else
-                    echo number_format($limit['TimeLimit'] / 60, 0, '.', '')." 分鐘"; 
+                    echo number_format($limit['TimeLimit'] / 60, 0, '.', '')." 分鐘";
                 ?>
               </td>
-              <td></td>
+              <td style="padding: 0px;">
+                <?php
+                  if ($limit['TimeLimit'] !== -1){
+                ?>
+                    <div class="btn" onclick="edit_limit(this)">編輯</div>
+                <?php
+                  }
+                ?>
+              </td>
             </tr>
         <?php
           }
