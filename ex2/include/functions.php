@@ -36,14 +36,17 @@
       if ($traffic == NULL)
           $traffic = 0;
     }
+    mysqli_stmt_close($stmt);
 
     $stmt = mysqli_prepare($MYSQLI, "SELECT `TrafficLimit` FROM `Limits` WHERE `username` = ?");
     mysqli_stmt_bind_param($stmt, "s", $username);
     my_mysqli_stmt_execute($stmt);
     mysqli_stmt_bind_result($stmt, $traffic_limit);
     if (!mysqli_stmt_fetch($stmt)){
+      mysqli_stmt_close($stmt);
       return true;
     }
+    mysqli_stmt_close($stmt);
 
     return $traffic <= $traffic_limit;
   }
@@ -58,14 +61,17 @@
       if ($traffic == NULL)
           $traffic = 0;
     }
+    mysqli_stmt_close($stmt);
 
     $stmt = mysqli_prepare($MYSQLI, "SELECT `TimeLimit` FROM `Limits` WHERE `username` = ?");
     mysqli_stmt_bind_param($stmt, "s", $username);
     my_mysqli_stmt_execute($stmt);
     mysqli_stmt_bind_result($stmt, $time_limit);
     if (!mysqli_stmt_fetch($stmt)){
+      mysqli_stmt_close($stmt);
       return true;
     }
+    mysqli_stmt_close($stmt);
 
     return $time <= $time_limit;
   }

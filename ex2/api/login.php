@@ -20,7 +20,7 @@
     my_mysqli_stmt_execute($stmt);
     mysqli_stmt_bind_result($stmt, $password);
     if (!mysqli_stmt_fetch($stmt)){
-      echo json_encode(array("status"=>"user not exist"));
+      echo json_encode(array("status"=>"failed"));
       exit();
     }
     mysqli_stmt_close($stmt);
@@ -44,7 +44,7 @@
       echo json_encode(array("status"=>"success"));
     }
     else{
-      echo json_encode(array("status"=>"wrong password"));
+      echo json_encode(array("status"=>"failed"));
     }
   }
 ?>

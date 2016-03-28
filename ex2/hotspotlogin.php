@@ -149,7 +149,7 @@
         登出
       </a>
     </div>
-    <table class="traffic-table centered">
+    <table class="traffic-table centered striped">
       <thead>
         <tr>
             <th>帳號名稱</th>
