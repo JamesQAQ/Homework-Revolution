@@ -95,9 +95,30 @@
         </script>
         <div class="row">
           <a href="javascript:login()" class="col l3 offset-l2 s4 offset-s1 waves-effect waves-light btn">登入</a>
-          <a class="col l3 offset-l2 s4 offset-s2  waves-effect waves-light btn disabled">忘記密碼</a>
+          <a href="javascript:$('#modal-add').openModal()" class="col l3 offset-l2 s4 offset-s2  waves-effect waves-light btn">註冊帳號</a>
         </div>
       </form>
+    </div>
+
+    <div id="modal-add" class="modal">
+      <div class="modal-content">
+        <h4>註冊帳號</h4>
+        <form class="col s12" style="padding: 25px;">
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="reg-username" type="text" class="validate">
+              <label for="reg-username">帳號</label>
+            </div>
+            <div class="input-field col s12">
+              <input id="reg-password" type="password" class="validate">
+              <label for="reg-password">密碼</label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <a href="javascript:register()" class="orange lighten-1 white-text btn-flat">註冊</a>
+      </div>
     </div>
 <?php
   }

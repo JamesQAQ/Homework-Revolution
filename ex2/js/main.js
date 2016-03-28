@@ -101,12 +101,12 @@ function login(username, password){
       if (res.status == "success")
         location.reload();
       else if (res.status == "failed")
-        Materialize.toast('帳號名稱或密碼錯誤！', 4000)
+        Materialize.toast('帳號名稱或密碼錯誤！', 4000);
     },
     error: function (xhr, ajaxOptions, thrownError)
     {
       console.log(xhr);
-      Materialize.toast('系統錯誤，請聯絡管理員。', 4000)
+      Materialize.toast('系統錯誤，請聯絡管理員。', 4000);
     }
   });
 }
@@ -125,7 +125,37 @@ function logout(){
     error: function (xhr, ajaxOptions, thrownError)
     {
       console.log(xhr);
-      Materialize.toast('系統錯誤，請聯絡管理員。', 4000)
+      Materialize.toast('系統錯誤，請聯絡管理員。', 4000);
+    }
+  });
+}
+
+function register(){
+  var username = $("#reg-username").val();
+  var password = $("#reg-password").val();
+  $.ajax({
+    type: "POST",
+    url: "/api/register.php",
+    cache: false,
+    async: false,
+    data:{
+          "username": username,
+          "password": password,
+         },
+    dataType: "json",
+    success: function(res)
+    {
+      if (res.status == "success"){
+        Materialize.toast('註冊成功！', 4000);
+        $('#modal-add').closeModal();
+      }
+      else if (res.status == "username existed")
+        Materialize.toast('此帳號已被註冊。', 4000);
+    },
+    error: function (xhr, ajaxOptions, thrownError)
+    {
+      console.log(xhr);
+      Materialize.toast('系統錯誤，請聯絡管理員。', 4000);
     }
   });
 }
