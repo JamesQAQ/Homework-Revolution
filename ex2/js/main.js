@@ -1,3 +1,31 @@
+function traffic_string(traffic){
+  var size = [1024 * 1024 * 1024, 1024 * 1024, 1024, 1];
+  var unit = ["GB", "MB", "KB", "B"];
+  for (var i = 0; i < size.length; i++){
+    if (traffic >= size[i]){
+      return (traffic / size[i]).toFixed(2) + " " + unit[i];
+    }
+  }
+  return "0 B";
+}
+
+function time_string(time){
+  var size = [24 * 60 * 60, 60 * 60, 60, 1];
+  var unit = ["日", "小時", "分", "秒"];
+  for (var i = 0; i < size.length; i++){
+    if (time >= size[i]){
+      var res = Math.floor(time / size[i]) + " " + unit[i];
+      time %= size[i];
+      if (i + 1 < size.length){
+        res += " ";
+        res += Math.floor(time / size[i + 1]) + " " + unit[i + 1];
+      }
+      return res;
+    }
+  }
+  return "0 秒";
+}
+
 function get_traffic(username){
   if (username != undefined){
     $.ajax({
@@ -7,13 +35,12 @@ function get_traffic(username){
       dataType: "json",
       success: function(res)
       {
-        console.log(res);
         td_list = $('table.traffic-table td');
         td_list[0].innerText = res.username;
-        td_list[1].innerText = res.input;
-        td_list[2].innerText = res.output;
-        td_list[3].innerText = res.total;
-        td_list[4].innerText = res.time;
+        td_list[1].innerText = traffic_string(res.input);
+        td_list[2].innerText = traffic_string(res.output);
+        td_list[3].innerText = traffic_string(res.total);
+        td_list[4].innerText = time_string(res.time);
       },
       error: function (xhr, ajaxOptions, thrownError)
       {
@@ -29,8 +56,6 @@ function get_traffic(username){
       dataType: "json",
       success: function(res)
       {
-        console.log(res);
-
         res2 = {};
         for (var i = 0; i < res.length; i++){
           res2[res[i].username] = {};
@@ -45,10 +70,10 @@ function get_traffic(username){
           var td_list = $(tr_list[i]).children("td");
           var username = td_list[0].innerText;
           if (res2[username] != undefined){
-            td_list[1].innerText = res2[username].input;
-            td_list[2].innerText = res2[username].output;
-            td_list[3].innerText = res2[username].total;
-            td_list[4].innerText = res2[username].time;
+            td_list[1].innerText = traffic_string(res2[username].input);
+            td_list[2].innerText = traffic_string(res2[username].output);
+            td_list[3].innerText = traffic_string(res2[username].total);
+            td_list[4].innerText = time_string(res2[username].time);
           }
         }
       },

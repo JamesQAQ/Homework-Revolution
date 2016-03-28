@@ -136,20 +136,19 @@
 ?>
     <div class="row center">
       <h4>管理平台</h4>
-      <a href="javascript:logout()">
-        登出
-      </a>
+      <p>今日 (<?php echo date("Y/m/d"); ?>) 流量資料</p>
+      <p><a href="javascript:logout()">登出</a></p>
     </div>
     <table class="traffic-table centered striped">
       <thead>
         <tr>
             <th>帳號名稱</th>
-            <th>日流入量</th>
-            <th>日流出量</th>
-            <th>日總量</th>
-            <th>日使用時間</th>
-            <th>日流量限制</th>
-            <th>日時間限制</th>
+            <th>上傳量</th>
+            <th>下載量</th>
+            <th>總量</th>
+            <th>使用時間</th>
+            <th>流量限制</th>
+            <th>時間限制</th>
             <th>編輯</th>
         </tr>
       </thead>
