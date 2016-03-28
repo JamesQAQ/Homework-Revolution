@@ -72,8 +72,17 @@
 
 <?php
   function display_user() {
-    global $USER;
+    global $USER, $MYSQLI;
     $username = $USER['username'];
+    $stmt = mysqli_prepare($MYSQLI, "SELECT `TimeLimit`, `TrafficLimit` FROM `Limits` WHERE `username` = ?");
+    mysqli_stmt_bind_param($stmt, "s", $username);
+    my_mysqli_stmt_execute($stmt);
+    mysqli_stmt_bind_result($stmt, $TimeLimit, $TrafficLimit);
+    if (!mysqli_stmt_fetch($stmt)){
+      $TimeLimit = -1;
+      $TrafficLimit = -1;
+    }
+    mysqli_stmt_close($stmt);
 ?>
     <div class="row center">
       <h4>個人資料</h4>
@@ -85,10 +94,12 @@
       <thead>
         <tr>
             <th>帳號名稱</th>
-            <th>日流入量</th>
-            <th>日流出量</th>
-            <th>日總量</th>
-            <th>日使用時間</th>
+            <th>流入量</th>
+            <th>流出量</th>
+            <th>總量</th>
+            <th>使用時間</th>
+            <th>流量限制</th>
+            <th>時間限制</th>
         </tr>
       </thead>
 
@@ -99,6 +110,22 @@
           <td></td>
           <td></td>
           <td></td>
+          <td>
+            <?php
+              if ($TrafficLimit === -1)
+                echo '∞';
+              else
+                echo number_format($TrafficLimit / (1024 * 1024), 0, '.', '')." MB"; 
+            ?>
+          </td>
+          <td>
+            <?php
+              if ($TimeLimit === -1)
+                echo '∞';
+              else
+                echo number_format($TimeLimit / 60, 0, '.', '')." 分鐘"; 
+            ?>
+          </td>        
         </tr>
       </tbody>
     </table>
@@ -159,16 +186,16 @@
         ?>
             <tr>
               <td><?php echo $username; ?></td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
+              <td>0 B</td>
+              <td>0 B</td>
+              <td>0 B</td>
+              <td>0 秒</td>
               <td>
                 <?php
                   if ($limit['TrafficLimit'] === -1)
                     echo '∞';
                   else
-                    echo $limit['TrafficLimit']; 
+                    echo number_format($limit['TrafficLimit'] / (1024 * 1024), 0, '.', '')." MB"; 
                 ?>
               </td>
               <td>
@@ -176,7 +203,7 @@
                   if ($limit['TimeLimit'] === -1)
                     echo '∞';
                   else
-                    echo $limit['TimeLimit']; 
+                    echo number_format($limit['TimeLimit'] / 60, 0, '.', '')." 分鐘"; 
                 ?>
               </td>
               <td></td>

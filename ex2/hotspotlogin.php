@@ -128,6 +128,12 @@
   function attempt_login() {
     global $uamsecret;
 
+    $username = $_GET['username'];
+    if (!(check_traffic_limit($username) && check_time_limit($username))){
+      display_limit();
+      exit();
+    }
+
     $hexchal = pack("H32", $_GET['chal']);
     $newchal = $uamsecret ? pack("H*", md5($hexchal.$uamsecret)) : $hexchal;
 
@@ -148,6 +154,19 @@
     <script>
       window.location = '<?php echo $logon_url; ?>';
     </script>
+<?php
+  }
+?>
+
+<?php
+  function display_limit() {
+?>
+    <div class="row center">
+      <h4>流量或時間超過使用限制</h4>
+      <a href="/">
+        請至管理平台查看相關資料
+      </a>
+    </div>
 <?php
   }
 ?>

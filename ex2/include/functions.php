@@ -28,6 +28,7 @@
   }
 
   function check_traffic_limit($username){
+    global $MYSQLI;
     $stmt = mysqli_prepare($MYSQLI, "SELECT SUM(`acctinputoctets` + `acctoutputoctets`) FROM `radacct` WHERE `username` = ? AND date_format(`acctstarttime`, '%Y-%m-%d') = date_format(now(),'%Y-%m-%d')");
     mysqli_stmt_bind_param($stmt, "s", $username);
     my_mysqli_stmt_execute($stmt);
@@ -52,14 +53,14 @@
   }
 
   function check_time_limit($username){
-
+    global $MYSQLI;
     $stmt = mysqli_prepare($MYSQLI, "SELECT SUM(`acctsessiontime`) FROM `radacct` WHERE `username` = ? AND date_format(`acctstarttime`, '%Y-%m-%d') = date_format(now(),'%Y-%m-%d')");
     mysqli_stmt_bind_param($stmt, "s", $username);
     my_mysqli_stmt_execute($stmt);
     mysqli_stmt_bind_result($stmt, $time);
     if (mysqli_stmt_fetch($stmt)){
-      if ($traffic == NULL)
-          $traffic = 0;
+      if ($time == NULL)
+          $time = 0;
     }
     mysqli_stmt_close($stmt);
 
