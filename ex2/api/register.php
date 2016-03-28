@@ -33,7 +33,12 @@
     my_mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
-    echo json_encode(array("status"=>"success")); // "status"=>"success" 
+    $stmt = mysqli_prepare($MYSQLI, "INSERT INTO `Limits` (`username`, `TrafficLimit`, `TimeLimit`) VALUES (?, 536870912, 1800)");
+    mysqli_stmt_bind_param($stmt, "s", $_POST['username']);
+    my_mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    echo json_encode(array("status"=>"success"));
   }
 
 ?>
