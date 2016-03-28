@@ -7,6 +7,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <title>Homework Revolution wifi</title>
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="css/main.css">
     <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
@@ -85,8 +86,15 @@
             <label for="password">密碼</label>
           </div>
         </div>
+        <script>
+          function login(){
+            window.location = "?chal=" + $("[name='chal']").val() + "&uamip=" + $("[name='uamip']").val()
+                            + "&uamport=" + $("[name='uamport']").val() + "&userurl=" + $("[name='userurl']").val()
+                            + "&username=" + $("[name='username']").val() + "&password=" + $("[name='password']").val();
+          }
+        </script>
         <div class="row">
-          <input type="submit" value="登入" class="col l3 offset-l2 s4 offset-s1 waves-effect waves-light btn">
+          <a href="javascript:login()" class="col l3 offset-l2 s4 offset-s1 waves-effect waves-light btn">登入</a>
           <a class="col l3 offset-l2 s4 offset-s2  waves-effect waves-light btn disabled">忘記密碼</a>
         </div>
       </form>

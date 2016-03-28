@@ -6,6 +6,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <title>Homework Revolution 管理平台</title>
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="css/main.css">
     <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
