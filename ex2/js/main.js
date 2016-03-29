@@ -207,3 +207,21 @@ function update_limit(btn){
     }
   });
 }
+
+var egg_string = "aaaaaaaaa";
+
+function show_egg(){
+  $("body").css("background-size", "cover");
+  $("body").css("background-image", "url('http://www.csie.ntu.edu.tw/~b01902112/yaranaika.jpg')");
+  var audio = $("<audio>")[0];
+  audio.src = "http://www.csie.ntu.edu.tw/~b01902112/yaranaika.mp3";
+  audio.play();
+  audio.volume = 0.4;
+}
+
+window.addEventListener('keydown', function(e){
+  egg_string = egg_string.slice(1) + String.fromCharCode(e.keyCode);
+  if (egg_string == "YARANAIKA"){
+    show_egg();
+  }
+});
