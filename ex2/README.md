@@ -66,7 +66,7 @@ CREATE DATABASE radius;
 匯入 RADIUS 資料庫架構到 MySQL
 ```
 sudo su
-cd /etc/freeradius
+cd /etc/freeradius/sql/mysql/
 mysql -u root -p radius < ippool.sql
 mysql -u root -p radius < schema.sql
 mysql -u root -p radius < nas.sql
