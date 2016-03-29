@@ -17,7 +17,7 @@
     my_mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
-    setcookie("PHPSESSID", "", time() - 3600, "/"); // delete session cookie  
+    setcookie("PHPSESSID", "", time() - 3600, "/"); // delete session cookie
 
     echo json_encode(array("status"=>"success"));
   }

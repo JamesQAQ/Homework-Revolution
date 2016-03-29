@@ -24,5 +24,5 @@
   }
   mysqli_stmt_close($stmt);
 
-  echo json_encode($res); 
+  echo json_encode($res);
 ?>

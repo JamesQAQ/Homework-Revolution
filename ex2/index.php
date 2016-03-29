@@ -115,7 +115,7 @@
               if ($TrafficLimit === -1)
                 echo '∞';
               else
-                echo number_format($TrafficLimit / (1024 * 1024), 0, '.', '')." MB"; 
+                echo number_format($TrafficLimit / (1024 * 1024), 0, '.', '')." MB";
             ?>
           </td>
           <td>
@@ -123,9 +123,9 @@
               if ($TimeLimit === -1)
                 echo '∞';
               else
-                echo number_format($TimeLimit / 60, 0, '.', '')." 分鐘"; 
+                echo number_format($TimeLimit / 60, 0, '.', '')." 分鐘";
             ?>
-          </td>        
+          </td>
         </tr>
       </tbody>
     </table>

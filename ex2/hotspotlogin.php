@@ -181,7 +181,7 @@
       <a href="<?php echo $prelogin_url; ?>">
         請在嘗試一次
       </a>
-    </div>    
+    </div>
 <?php
   }
 ?>
@@ -236,7 +236,7 @@
       <a href="<?php echo $prelogin_url; ?>">
         使用其他帳號登入
       </a>
-    </div>  
+    </div>
 <?php
   }
 ?>
