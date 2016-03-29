@@ -23,3 +23,11 @@ input.origin-input {
   height: 24px;
   width: 48px;
 }
+
+/* line 23, ../sass/main.scss */
+form.login-container {
+  background-color: rgba(255, 255, 255, 0.8);
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}

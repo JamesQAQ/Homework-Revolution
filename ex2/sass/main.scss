@@ -19,3 +19,8 @@ input.origin-input{
   height: 24px;
   width: 48px;
 }
+
+form.login-container{
+  background-color: rgba(255, 255, 255, 0.8);
+  @include border-radius(10px);
+}

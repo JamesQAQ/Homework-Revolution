@@ -13,16 +13,6 @@
     <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
-    <style type="text/css">
-    <!--
-      form.login-container{
-        background-color: rgba(255, 255, 255, 0.8);
-        -moz-border-radius: 10px;
-        -webkit-border-radius: 10px;
-        border-radius: 10px;
-      }
-    -->
-    </style>
   </head>
   <body>
     <?php
