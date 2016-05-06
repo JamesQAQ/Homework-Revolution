@@ -15,13 +15,7 @@ sudo tasksel install lamp-server
 ```
 sudo apt-get install phpmyadmin
 ```
-
-(這步好像在上面裝 PHPMyAdmin 時就會做了，應該是不用下)
-
-將 PHPMyAdmin 的設定檔放到 Apache Server 中
-```
-sudo cp /etc/phpmyadmin/apache.conf /etc/apache2/conf.d
-```
+安裝時會有一個針對伺服器自動裝設定檔的選項，記得先按空白鍵選取 apache2 再下一步
 
 (DEBUG用)
 在 `/etc/php5/apache2/php.ini` 內
@@ -75,7 +69,7 @@ mysql -u root -p radius < admin.sql
 這邊會自動新增一個帳號 `radius/radpass` 給 radius server 登入用
 
 取消 sql 的註解
-`sudo vim /etc/freeradius/sites-enabled`
+`sudo vim /etc/freeradius/sites-enabled/default`
 `authorize`, `accounting`, `session`, `post-auth` module 內
 
 ```
@@ -202,8 +196,8 @@ Service -> Hostspot -> Chillispot
 Chillispot:                        Enabled
 Separate Wifi from the LAN Bridge: Enabled
 Remote Network:                    192.168.182.0/24
-Primary Radius Server IP/DNS:      192.168.182.1
-Backup Radius Server IP/DNS:       192.168.182.1
+Primary Radius Server IP/DNS:      192.168.182.2
+Backup Radius Server IP/DNS:       192.168.182.2
 DNS IP:                            8.8.8.8
 Redirect URL:                      https://192.168.182.2/hotspotlogin.php
 Shared Key:                        testing123
