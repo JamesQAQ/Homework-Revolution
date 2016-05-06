@@ -27,3 +27,9 @@ CREATE TABLE IF NOT EXISTS `Limits` (
   `TimeLimit` int(12) NOT NULL,
   `TrafficLimit` int(12) NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+
+CREATE TABLE IF NOT EXISTS `GroupAdmins` (
+  `id` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `username` varchar(64) NOT NULL,
+  `groupname` varchar(64) NOT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;

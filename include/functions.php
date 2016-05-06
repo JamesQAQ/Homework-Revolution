@@ -13,7 +13,9 @@
 
     if ($LoginTime >= (time() - COOKIE_TIME)){
       $res = mysqli_query($MYSQLI, "SELECT `username`, `groupname` FROM `radusergroup` WHERE `username` = '".mysqli_real_escape_string($MYSQLI, $username)."'");
-      return mysqli_fetch_array($res);
+      $res = mysqli_fetch_array($res);
+      $res[2] = $res['groupadmin'] = is_groupadmin($username, $res['groupname']);
+      return $res;
     }
     else{
       return NULL;
@@ -25,6 +27,20 @@
       echo json_encode(array("status"=>mysqli_stmt_error($stmt)));
       exit();
     }
+  }
+
+  function is_groupadmin($username, $groupname){
+    global $MYSQLI;
+    $stmt = mysqli_prepare($MYSQLI, "SELECT 1 FROM `GroupAdmins` WHERE `username` = ? AND `groupname` = ?");
+    mysqli_stmt_bind_param($stmt, "ss", $username, $groupname);
+    my_mysqli_stmt_execute($stmt);
+    mysqli_stmt_bind_result($stmt, $tmp);
+    if (mysqli_stmt_fetch($stmt)){
+      mysqli_stmt_close($stmt);
+      return true;
+    }
+    mysqli_stmt_close($stmt);
+    return false;
   }
 
   function check_traffic_limit($username){
