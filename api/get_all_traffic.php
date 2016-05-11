@@ -15,12 +15,15 @@
         $output = 0;
     if ($time == NULL)
         $time = 0;
-    $tmp['username'] = $username;
-    $tmp['input'] = $input;
-    $tmp['output'] = $output;
-    $tmp['total'] = $input + $output;
-    $tmp['time'] = $time;
-    array_push($res, $tmp);
+    if ($USER != NULL && ($USER['username'] === $username || $USER['groupname'] === 'admin'
+        || is_ingroup($username, $USER['groupname']) && is_groupadmin($USER['username'], $USER['groupname']))){
+      $tmp['username'] = $username;
+      $tmp['input'] = $input;
+      $tmp['output'] = $output;
+      $tmp['total'] = $input + $output;
+      $tmp['time'] = $time;
+      array_push($res, $tmp);
+    }
   }
   mysqli_stmt_close($stmt);
 
