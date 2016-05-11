@@ -20,7 +20,7 @@
         </div>
         <?php
           if ($USER != NULL){
-            if ($USER['groupname'] === 'admin')
+            if ($USER['groupname'] === 'admin' or is_groupadmin($USER['username'], $USER['groupname']))
               display_manage();
             else
               display_user();
@@ -141,9 +141,14 @@
 
 <?php
   function display_manage() {
-    global $MYSQLI;
+    global $USER, $MYSQLI;
     $list = array();
-    $stmt = mysqli_prepare($MYSQLI, "SELECT `username` FROM `radcheck` WHERE `attribute` = 'Cleartext-Password'");
+    if ($USER['groupname'] === 'admin')
+      $stmt = mysqli_prepare($MYSQLI, "SELECT `username` FROM `radcheck` WHERE `attribute` = 'Cleartext-Password'");
+    else{
+      $stmt = mysqli_prepare($MYSQLI, "SELECT a.`username` FROM `radcheck` a, `radusergroup` b WHERE a.`username`=b.`username` AND b.`groupname`=?");
+      mysqli_stmt_bind_param($stmt, "s", $USER['groupname']);
+    }
     my_mysqli_stmt_execute($stmt);
     mysqli_stmt_bind_result($stmt, $username);
     while (mysqli_stmt_fetch($stmt)){
@@ -157,8 +162,10 @@
     my_mysqli_stmt_execute($stmt);
     mysqli_stmt_bind_result($stmt, $id, $username, $TimeLimit, $TrafficLimit);
     while (mysqli_stmt_fetch($stmt)){
-      $list[$username]['TimeLimit'] = $TimeLimit;
-      $list[$username]['TrafficLimit'] = $TrafficLimit;
+      if (array_key_exists($username, $list)){
+        $list[$username]['TimeLimit'] = $TimeLimit;
+        $list[$username]['TrafficLimit'] = $TrafficLimit;
+      }
     }
     mysqli_stmt_close($stmt);
 ?>
