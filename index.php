@@ -74,10 +74,10 @@
   function display_user() {
     global $USER, $MYSQLI;
     $username = $USER['username'];
-    $stmt = mysqli_prepare($MYSQLI, "SELECT `TimeLimit`, `TrafficLimit` FROM `Limits` WHERE `username` = ?");
+    $stmt = mysqli_prepare($MYSQLI, "SELECT * FROM `Limits` WHERE `username` = ?");
     mysqli_stmt_bind_param($stmt, "s", $username);
     my_mysqli_stmt_execute($stmt);
-    mysqli_stmt_bind_result($stmt, $TimeLimit, $TrafficLimit);
+    mysqli_stmt_bind_result($stmt, $TimeLimit, $TrafficLimit, $DefaultTimeLimit);
     if (!mysqli_stmt_fetch($stmt)){
       $TimeLimit = -1;
       $TrafficLimit = -1;
@@ -160,7 +160,7 @@
 
     $stmt = mysqli_prepare($MYSQLI, "SELECT * FROM `Limits`");
     my_mysqli_stmt_execute($stmt);
-    mysqli_stmt_bind_result($stmt, $id, $username, $TimeLimit, $TrafficLimit);
+    mysqli_stmt_bind_result($stmt, $id, $username, $TimeLimit, $TrafficLimit, $DefaultTimeLimit);
     while (mysqli_stmt_fetch($stmt)){
       if (array_key_exists($username, $list)){
         $list[$username]['TimeLimit'] = $TimeLimit;
