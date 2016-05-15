@@ -166,7 +166,6 @@ function process_limit(td){
   input.addClass("origin-input");
   input.attr("type", "number");
   input.attr("value", tmp[0]);
-  console.log(input);
   $(td).html("");
   $(td).append(input);
   $(td).append(" " + tmp[1]);
@@ -175,8 +174,15 @@ function process_limit(td){
 function edit_limit(btn){
   var traffic_limit_td = $(btn).parent().parent().children('td')[5];
   var time_limit_td = $(btn).parent().parent().children('td')[6];
+  var default_time_limit_td = undefined;
+  if ($(btn).parent().parent().children('td').length == 9)
+    default_time_limit_td = $(btn).parent().parent().children('td')[7];
+
   process_limit(traffic_limit_td);
   process_limit(time_limit_td);
+  if (default_time_limit_td != undefined)
+    process_limit(default_time_limit_td);
+
   $(btn).attr("onclick", "javascript:update_limit(this)");
   $(btn).html("送出");
 }
@@ -184,17 +190,25 @@ function edit_limit(btn){
 function update_limit(btn){
   var username = $(btn).parent().parent().children('td')[0].innerText;
   var traffic_limit = $($(btn).parent().parent().children('td')[5]).children("input").val();
-  var time_limit = $($(btn).parent().parent().children('td')[6]).children("input").val()
+  var time_limit = $($(btn).parent().parent().children('td')[6]).children("input").val();
+  var default_time_limit = undefined;
+  if ($(btn).parent().parent().children('td').length == 9)
+    default_time_limit = $($(btn).parent().parent().children('td')[7]).children("input").val();
+
+  var limit_data = {
+    "username": username,
+    "traffic": traffic_limit,
+    "time": time_limit
+  };
+  if (default_time_limit != undefined)
+    limit_data['default'] = default_time_limit;
+
   $.ajax({
     type: "POST",
     url: "/api/update_limit.php",
     cache: false,
     async: false,
-    data:{
-          "username": username,
-          "traffic": traffic_limit,
-          "time": time_limit
-         },
+    data: limit_data,
     dataType: "json",
     success: function(res)
     {

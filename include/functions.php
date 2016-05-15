@@ -57,6 +57,20 @@
     return false;
   }
 
+  function is_regular_on($groupname){
+    global $MYSQLI;
+    $stmt = mysqli_prepare($MYSQLI, "SELECT `regular` FROM `Options` WHERE `groupname` = ?");
+    mysqli_stmt_bind_param($stmt, "s", $groupname);
+    my_mysqli_stmt_execute($stmt);
+    mysqli_stmt_bind_result($stmt, $regular);
+    if (mysqli_stmt_fetch($stmt)){
+      mysqli_stmt_close($stmt);
+      return ($regular == 1);
+    }
+    mysqli_stmt_close($stmt);
+    return false;
+  }
+
   function check_traffic_limit($username){
     global $MYSQLI;
     $stmt = mysqli_prepare($MYSQLI, "SELECT SUM(`acctinputoctets` + `acctoutputoctets`) FROM `radacct` WHERE `username` = ? AND date_format(`acctstarttime`, '%Y-%m-%d') = date_format(now(),'%Y-%m-%d')");
