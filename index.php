@@ -1,5 +1,10 @@
 <?php
   include "config.php";
+
+  if ($USER == NULL){
+    redirect("/login.php");
+    exit();
+  }
 ?>
 
 <!DOCTYPE html>
@@ -19,56 +24,14 @@
           <h2 class="blue-text">Homework Revolution</h2>
         </div>
         <?php
-          if ($USER != NULL){
-            if ($USER['groupname'] === 'admin' or is_groupadmin($USER['username'], $USER['groupname']))
-              display_manage();
-            else
-              display_user();
-          }
+          if ($USER['groupname'] === 'admin' or is_groupadmin($USER['username'], $USER['groupname']))
+            display_manage();
           else
-            display_login();
+            display_user();
         ?>
       </div>
   </body>
 </html>
-
-<?php
-  function display_login() {
-?>
-    <div class="row center">
-      <h4>登入帳號使用 HR 管理平台</h4>
-    </div>
-    <div class="row">
-      <form class="col l6 offset-l3 m8 offset-m2 s12 z-depth-2 login-container" style="padding: 25px;">
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="username" name="username" type="text" class="validate">
-            <label for="username">帳號</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="password" name="password" type="password" class="validate">
-            <label for="password">密碼</label>
-          </div>
-        </div>
-        <div class="row">
-          <a id="login" class="col l3 offset-l2 s4 offset-s1 waves-effect waves-light btn">登入</a>
-          <a class="col l3 offset-l2 s4 offset-s2 waves-effect waves-light btn disabled">忘記密碼</a>
-        </div>
-      </form>
-      <script>
-        $(function(){
-          $("#login").click(function(e){
-            e.preventDefault();
-            login($("#username").val(), $("#password").val());
-          });
-        });
-      </script>
-    </div>
-<?php
-  }
-?>
 
 <?php
   function display_user() {
@@ -155,6 +118,7 @@
       $list[$username] = array();
       $list[$username]['TimeLimit'] = -1;
       $list[$username]['TrafficLimit'] = -1;
+      $list[$username]['DefaultTrafficLimit'] = -1;
     }
     mysqli_stmt_close($stmt);
 
@@ -165,6 +129,7 @@
       if (array_key_exists($username, $list)){
         $list[$username]['TimeLimit'] = $TimeLimit;
         $list[$username]['TrafficLimit'] = $TrafficLimit;
+        $list[$username]['DefaultTrafficLimit'] = $DefaultTimeLimit;
       }
     }
     mysqli_stmt_close($stmt);

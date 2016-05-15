@@ -111,4 +111,8 @@
     exec("echo User-Name=".$username." | radclient -x ".UAM_IP." disconnect ".RADIUS_SECRET);
   }
 
+  function redirect($url){
+    echo '<script>window.location="'.$url.'"</script>';
+  }
+
 ?>
