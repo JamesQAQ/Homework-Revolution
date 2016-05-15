@@ -52,6 +52,11 @@
     my_mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
+    $stmt = mysqli_prepare($MYSQLI, "INSERT INTO `Options` (`groupname`, `regular`) VALUES (?, 0)");
+    mysqli_stmt_bind_param($stmt, "s", $_POST['groupname']);
+    my_mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
     echo json_encode(array("status"=>"success"));
   }
   else{

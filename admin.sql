@@ -3,6 +3,7 @@ INSERT INTO `radgroupreply` (`groupname`, `attribute`, `op`, `value`) VALUES ('u
 INSERT INTO `radgroupreply` (`groupname`, `attribute`, `op`, `value`) VALUES ('user','Acct-Interim-Interval',':=','60');
 INSERT INTO `radgroupreply` (`groupname`, `attribute`, `op`, `value`) VALUES ('user','Session-Timeout',':=','3600');
 INSERT INTO `radgroupreply` (`groupname`, `attribute`, `op`, `value`) VALUES ('user','Idle-Timeout',':=','600');
+INSERT INTO `radgroupcheck` (`groupname`, `attribute`, `op`, `value`) VALUES ('user','Simultaneous-Use',':=','1');
 
 INSERT INTO `radcheck` (`username`, `attribute`, `op`, `value`) VALUES ('ta', 'Cleartext-Password',':=','tatest');
 INSERT INTO `radusergroup` (`username`, `groupname`) VALUES ('ta', 'user');
@@ -32,4 +33,10 @@ CREATE TABLE IF NOT EXISTS `GroupAdmins` (
   `id` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `username` varchar(64) NOT NULL,
   `groupname` varchar(64) NOT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+
+CREATE TABLE IF NOT EXISTS `Options` (
+  `id` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `groupname` varchar(64) NOT NULL,
+  `regular` boolean NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
