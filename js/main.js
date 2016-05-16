@@ -222,6 +222,32 @@ function update_limit(btn){
   });
 }
 
+function update_regular(val, groupname){
+  $.ajax({
+    type: "POST",
+    url: "/api/update_regular.php",
+    cache: false,
+    async: false,
+    data: {
+      "regular": val,
+      "groupname": groupname
+    },
+    dataType: "json",
+    success: function(res)
+    {
+      if (res.status == 'success')
+        location.reload();
+      else
+        Materialize.toast('權限不足。', 4000);
+    },
+    error: function (xhr, ajaxOptions, thrownError)
+    {
+      console.log(xhr);
+      Materialize.toast('系統錯誤，請聯絡管理員。', 4000);
+    }
+  });
+}
+
 var egg_string = "aaaaaaaaa";
 
 function show_egg(){

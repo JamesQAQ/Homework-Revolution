@@ -157,6 +157,19 @@
       <p>今日 (<?php echo date("Y/m/d"); ?>) 流量資料</p>
       <p><a href="javascript:logout()">登出</a></p>
     </div>
+    <form action="#">
+      <div class="row center">
+        Regular option: 
+        <input class="with-gap" name="group1" type="radio" id="regular_on" onclick="javascript:update_regular(1, '<?php echo $USER['groupname']; ?>')" />
+        <label for="regular_on">On</label>
+        &nbsp;&nbsp;&nbsp;
+        <input class="with-gap" name="group1" type="radio" id="regular_off" onclick="javascript:update_regular(0, '<?php echo $USER['groupname']; ?>')" />
+        <label for="regular_off">Off</label>
+      </div>
+    </form>
+    <script>
+      document.getElementById('<?php if ($regular_on) echo "regular_on"; else echo "regular_off"; ?>').checked = true;
+    </script>
     <table class="traffic-table centered striped">
       <thead>
         <tr>
