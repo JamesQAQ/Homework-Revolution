@@ -53,6 +53,61 @@
 </html>
 
 <?php
+  function display_requests(){
+?>
+    <div class="row center">
+      <h4>請求列表</h4>
+      <a href="javascript:logout()">
+        登出
+      </a>
+    </div>
+
+    <div class="row center">
+      <table class="traffic-table centered striped">
+        <thead>
+          <tr>
+              <th style="width: 15%;">上傳時間</th>
+              <th style="width: 15%;">帳號名稱</th>
+              <th style="width: 40%;">敘述</th>
+              <th style="width: 15%;">狀態</th>
+              <th style="width: 15%;">詳細</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+            global $MYSQLI, $USER;
+            if ($USER['groupname'] === 'admin')
+              $stmt = mysqli_prepare($MYSQLI, "SELECT * FROM `Request` ORDER BY `date` DESC");
+            else{
+              $stmt = mysqli_prepare($MYSQLI, "SELECT a.* FROM `Request` a, `radusergroup` b WHERE a.`username`=b.`username` AND b.`groupname`=? ORDER BY a.`date` DESC");
+              mysqli_stmt_bind_param($stmt, "s", $USER['groupname']);
+            }
+            my_mysqli_stmt_execute($stmt);
+            mysqli_stmt_bind_result($stmt, $rid, $username, $description, $date, $read);
+            while (mysqli_stmt_fetch($stmt)){
+              echo '<tr>';
+                echo '<td>'.$date.'</td>';
+                echo '<td>'.$username.'</td>';
+                echo '<td style="text-align: left;">'.$description.'</td>';
+                echo '<td >';
+                  if ($read === 1)
+                    echo '<font color="green">已讀</font>';
+                  else
+                    echo '<font color="red">未讀</font>';
+                echo '</td>';
+                echo '<td><div class="btn" onclick="display_request('.$rid.')">詳細</div></td>';
+              echo '</tr>';
+            }
+            mysqli_stmt_close($stmt);
+          ?>
+        </tbody>
+      </table>
+    </div>
+<?php
+  }
+?>
+
+<?php
   function submit_request(){
 ?>
     <div class="row center">
@@ -78,10 +133,10 @@
         <tbody>
           <?php
             global $MYSQLI, $USER;
-            $stmt = mysqli_prepare($MYSQLI, "SELECT a.`date`, a.`description`, a.`read` FROM `Request` a, `radusergroup` b WHERE a.`username`=b.`username` AND a.`username`=? ORDER BY a.`date` DESC");
+            $stmt = mysqli_prepare($MYSQLI, "SELECT a.`id`, a.`date`, a.`description`, a.`read` FROM `Request` a, `radusergroup` b WHERE a.`username`=b.`username` AND a.`username`=? ORDER BY a.`date` DESC");
             mysqli_stmt_bind_param($stmt, "s", $USER['username']);
             my_mysqli_stmt_execute($stmt);
-            mysqli_stmt_bind_result($stmt, $date, $description, $read);
+            mysqli_stmt_bind_result($stmt, $rid, $date, $description, $read);
             while (mysqli_stmt_fetch($stmt)){
               echo '<tr>';
                 echo '<td>'.$date.'</td>';
@@ -92,7 +147,7 @@
                   else
                     echo '<font color="red">未讀</font>';
                 echo '</td>';
-                echo '<td>詳細</td>';
+                echo '<td><div class="btn" onclick="display_request('.$rid.')">詳細</div></td>';
               echo '</tr>';
             }
             mysqli_stmt_close($stmt);
@@ -134,6 +189,17 @@
 <?php
   }
 ?>
+
+<!-- for displaying details of requests -->
+<a class="waves-effect waves-light btn display-request" style="display: none;" href="#modal2">Modal</a>
+<div id="modal2" class="modal">
+  <div class="modal-content">
+    
+  </div>
+</div>
+<script>
+  $('.display-request').leanModal();
+</script>
 
 
 <?php
