@@ -41,3 +41,16 @@ CREATE TABLE IF NOT EXISTS `Options` (
   `groupname` varchar(64) NOT NULL,
   `regular` boolean NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+
+CREATE TABLE IF NOT EXISTS `Request` (
+  `id` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `username` varchar(64) NOT NULL,
+  `description` text NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `read` boolean NOT NULL DEFAULT 0
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+
+CREATE TABLE IF NOT EXISTS `RequestPhoto` (
+  `rid` int(10) NOT NULL,
+  `data` longtext NOT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;

@@ -120,7 +120,7 @@ function logout(){
     dataType: "json",
     success: function(res)
     {
-      location.reload();
+      window.location = '/login.php';
     },
     error: function (xhr, ajaxOptions, thrownError)
     {
