@@ -271,6 +271,82 @@ function display_request(rid){
   });
 }
 
+function create_group(){
+  var groupname = $("#new-groupname").val();
+  $.ajax({
+    type: "POST",
+    url: "/api/create_group.php",
+    cache: false,
+    async: false,
+    data: {
+      "groupname": groupname
+    },
+    dataType: "json",
+    success: function(res)
+    {
+      if (res.status == "success")
+        location.reload();
+      else if (res.status == "groupname existed")
+        Materialize.toast('群組名稱已存在。', 4000);
+      else if (res.status == "permission denied")
+        Materialize.toast('權限不足。', 4000);
+    },
+    error: function (xhr, ajaxOptions, thrownError)
+    {
+      console.log(xhr);
+      Materialize.toast('系統錯誤，請聯絡管理員。', 4000);
+    }
+  });
+}
+
+function create_user(){
+  var username = $("#username").val();
+  var groupname = $("#groupname").val();
+  var password = $("#password").val();
+
+  if (password != $("#password2").val()){
+    $("#password").val("");
+    $("#password2").val("");
+    Materialize.toast('兩次密碼輸入不一致。', 4000);
+    return;
+  }
+
+  var data = {
+    "username": username,
+    "groupname": groupname,
+    "password": password,
+  }
+  if ($("#admin_on")[0].checked)
+    data["admin"] = "";
+
+  $.ajax({
+    type: "POST",
+    url: "/api/create_user.php",
+    cache: false,
+    async: false,
+    data: data,
+    dataType: "json",
+    success: function(res)
+    {
+      if (res.status == "success")
+        location.reload();
+      else if (res.status == "username existed")
+        Materialize.toast('已存在相同使用者名稱。', 4000);
+      else if (res.status == "group not exists")
+        Materialize.toast('指定的群組名稱不已存在。', 4000);
+      else if (res.status == "permission denied")
+        Materialize.toast('權限不足。', 4000);
+      $("#password").val("");
+      $("#password2").val("");
+    },
+    error: function (xhr, ajaxOptions, thrownError)
+    {
+      console.log(xhr);
+      Materialize.toast('系統錯誤，請聯絡管理員。', 4000);
+    }
+  });
+}
+
 var egg_string = "aaaaaaaaa";
 
 function show_egg(){
