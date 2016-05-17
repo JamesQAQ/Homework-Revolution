@@ -65,7 +65,40 @@
     <div class="row center">
       <!-- Modal Trigger -->
       <a class="waves-effect waves-light btn modal-trigger" href="#modal1">新增</a>
-
+      <br><br>
+      <table class="traffic-table centered striped">
+        <thead>
+          <tr>
+              <th style="width: 20%;">上傳時間</th>
+              <th style="width: 50%;">敘述</th>
+              <th style="width: 15%;">狀態</th>
+              <th style="width: 15%;">詳細</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+            global $MYSQLI, $USER;
+            $stmt = mysqli_prepare($MYSQLI, "SELECT a.`date`, a.`description`, a.`read` FROM `Request` a, `radusergroup` b WHERE a.`username`=b.`username` AND a.`username`=? ORDER BY a.`date` DESC");
+            mysqli_stmt_bind_param($stmt, "s", $USER['username']);
+            my_mysqli_stmt_execute($stmt);
+            mysqli_stmt_bind_result($stmt, $date, $description, $read);
+            while (mysqli_stmt_fetch($stmt)){
+              echo '<tr>';
+                echo '<td>'.$date.'</td>';
+                echo '<td style="text-align: left;">'.$description.'</td>';
+                echo '<td >';
+                  if ($read === 1)
+                    echo '<font color="green">已讀</font>';
+                  else
+                    echo '<font color="red">未讀</font>';
+                echo '</td>';
+                echo '<td>詳細</td>';
+              echo '</tr>';
+            }
+            mysqli_stmt_close($stmt);
+          ?>
+        </tbody>
+      </table>
     </div>
 
     <!-- Modal Structure -->
