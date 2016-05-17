@@ -51,9 +51,7 @@
 ?>
     <div class="row center">
       <h4>個人資料</h4>
-      <a href="javascript:logout()">
-        登出
-      </a>
+      <?php include "bar.php"; ?>
     </div>
     <table class="traffic-table centered striped">
       <thead>
@@ -154,8 +152,9 @@
 ?>
     <div class="row center">
       <h4>管理平台</h4>
+      <?php include "bar.php"; ?>
+      <br>
       <p>今日 (<?php echo date("Y/m/d"); ?>) 流量資料</p>
-      <p><a href="javascript:logout()">登出</a></p>
     </div>
     <form action="#">
       <div class="row center">

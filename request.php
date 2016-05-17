@@ -57,9 +57,7 @@
 ?>
     <div class="row center">
       <h4>請求列表</h4>
-      <a href="javascript:logout()">
-        登出
-      </a>
+      <?php include "bar.php"; ?>
     </div>
 
     <div class="row center">
@@ -112,9 +110,7 @@
 ?>
     <div class="row center">
       <h4>請求列表</h4>
-      <a href="javascript:logout()">
-        登出
-      </a>
+      <?php include "bar.php"; ?>
     </div>
     
     <div class="row center">
