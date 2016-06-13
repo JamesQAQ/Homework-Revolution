@@ -51,6 +51,14 @@ CREATE TABLE IF NOT EXISTS `Request` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
 
 CREATE TABLE IF NOT EXISTS `RequestPhoto` (
+  `id` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `rid` int(10) NOT NULL,
   `data` longtext NOT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+
+CREATE TABLE IF NOT EXISTS `RequestResponse` (
+  `id` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `rid` int(10) NOT NULL,
+  `username` varchar(64) NOT NULL,
+  `description` text NOT NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;

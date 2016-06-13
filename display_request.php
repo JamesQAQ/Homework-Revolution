@@ -55,14 +55,14 @@
       </table>
 
 <?php
-      $stmt = mysqli_prepare($MYSQLI, "SELECT `data` FROM `RequestPhoto` WHERE `rid` = ?");
+      $stmt = mysqli_prepare($MYSQLI, "SELECT `id`, `data` FROM `RequestPhoto` WHERE `rid` = ?");
       mysqli_stmt_bind_param($stmt, "i", $_GET['rid']);
       my_mysqli_stmt_execute($stmt);
       mysqli_stmt_store_result($stmt);
-      mysqli_stmt_bind_result($stmt, $data);
+      mysqli_stmt_bind_result($stmt, $id, $data);
       echo '<br><br>附件：<br><br><div class="row">';
       while (mysqli_stmt_fetch($stmt)){
-        echo '<img class="col s4" src="data:image;base64,'.$data.'">';
+        echo '<a target="view_window" href="/view_photo.php?id='.$id.'"><img class="col s4" src="data:image;base64,'.$data.'"></a>';
       }
       echo '</div>';
       mysqli_stmt_close($stmt);
