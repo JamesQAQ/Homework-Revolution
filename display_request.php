@@ -55,6 +55,39 @@
       </table>
 
 <?php
+      $stmt = mysqli_prepare($MYSQLI, "SELECT `username`, `description`, `date` FROM `RequestResponse` WHERE `rid` = ?");
+      mysqli_stmt_bind_param($stmt, "i", $_GET['rid']);
+      my_mysqli_stmt_execute($stmt);
+      mysqli_stmt_bind_result($stmt, $username, $description, $date);
+?>
+
+      <table class="traffic-table centered striped" style="margin-top: 16px;">
+        <thead>
+          <tr>
+            <th style="width: 20%;">回覆時間</th>
+            <th style="width: 15%;">帳號名稱</th>
+            <th style="width: 65%;">敘述</th>
+          </tr>
+        </thead>
+        <tbody>
+<?php
+          while (mysqli_stmt_fetch($stmt)){
+            echo '<tr>';
+            echo '<td>'.$date.'</td>';
+            echo '<td>'.$username.'</td>';
+            echo '<td style="text-align: left;">'.$description.'</td>';
+            echo '</tr>';
+          }
+?>
+        </tbody>
+      </table>
+
+      <textarea id="response" style="margin-top: 16px;"></textarea>
+      <div class="btn" onclick="response_request(<?php echo $_GET['rid'];?>)" style="float: right;">回覆</div>
+
+<?php
+      mysqli_stmt_close($stmt);
+
       $stmt = mysqli_prepare($MYSQLI, "SELECT `id`, `data` FROM `RequestPhoto` WHERE `rid` = ?");
       mysqli_stmt_bind_param($stmt, "i", $_GET['rid']);
       my_mysqli_stmt_execute($stmt);

@@ -248,7 +248,7 @@ function update_regular(val, groupname){
   });
 }
 
-function display_request(rid){
+function display_request(rid, off){
   $.ajax({
     type: "GET",
     url: "/display_request.php",
@@ -261,7 +261,31 @@ function display_request(rid){
     success: function(res)
     {
       $('#modal2 .modal-content').html(res);
-      $('.display-request').click();
+      if (off == undefined)
+        $('.display-request').click();
+    },
+    error: function (xhr, ajaxOptions, thrownError)
+    {
+      console.log(xhr);
+      Materialize.toast('系統錯誤，請聯絡管理員。', 4000);
+    }
+  });
+}
+
+function response_request(rid){
+  $.ajax({
+    type: "POST",
+    url: "/api/response_request.php",
+    cache: false,
+    async: false,
+    data: {
+      "rid": rid,
+      "description": $('#response').val(),
+    },
+    dataType: "json",
+    success: function(res)
+    {
+      display_request(rid, true);
     },
     error: function (xhr, ajaxOptions, thrownError)
     {

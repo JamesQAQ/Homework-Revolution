@@ -60,5 +60,6 @@ CREATE TABLE IF NOT EXISTS `RequestResponse` (
   `id` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `rid` int(10) NOT NULL,
   `username` varchar(64) NOT NULL,
-  `description` text NOT NULL
+  `description` text NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
