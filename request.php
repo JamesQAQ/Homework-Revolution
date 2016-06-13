@@ -16,6 +16,8 @@
     $photos = $_FILES['photos'];
     $size = sizeof($photos['name']);
     for ($i = 0; $i < $size; $i++){
+      if ($photos['tmp_name'][$i] == NULL)
+        continue;
       $data = base64_encode(file_get_contents($photos['tmp_name'][$i]));
 
       $stmt = mysqli_prepare($MYSQLI, "INSERT INTO `RequestPhoto` (`rid`, `data`) VALUES (?, ?)");
@@ -51,7 +53,7 @@
 
     $mail->addAddress($email, $name);
 
-    $mail->Subject = "[通知] 您家的小孩想要用網路"; 
+    $mail->Subject = "[通知] 您家的小孩想要用網路";
     $mail->Body = "<p>親愛的用戶 ".$name." 你好，</p>";
     $mail->Body .= "<p>您家的小孩 ".$USER['username']." 想要使用網路，並留下了以下訊息：</p>";
     $mail->Body .= "<p>".$_POST['description']."</p>";
