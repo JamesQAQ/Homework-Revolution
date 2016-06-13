@@ -120,6 +120,10 @@
       <input id="password2" type="password" class="validate">
       <label for="password2">重覆輸入密碼</label>
     </div>
+    <div class="input-field col s6">
+      <input id="email" type="email" class="validate">
+      <label for="email">電子信箱</label>
+    </div>
     <div style="margin-left: 10px;">
       管理者： 
       <input class="with-gap" name="group1" type="radio" id="admin_on"  />

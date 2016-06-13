@@ -82,10 +82,15 @@
         </tbody>
       </table>
 
+<?php
+    if (is_ingroup($username, $USER['groupname']) && is_groupadmin($USER['username'], $USER['groupname'])){
+?>
       <textarea id="response" style="margin-top: 16px;"></textarea>
       <div class="btn" onclick="response_request(<?php echo $_GET['rid'];?>)" style="float: right;">回覆</div>
 
 <?php
+    }
+    
       mysqli_stmt_close($stmt);
 
       $stmt = mysqli_prepare($MYSQLI, "SELECT `id`, `data` FROM `RequestPhoto` WHERE `rid` = ?");

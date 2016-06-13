@@ -23,6 +23,45 @@
       my_mysqli_stmt_execute($stmt);
       mysqli_stmt_close($stmt);
     }
+
+    require("PHPMailer/PHPMailerAutoload.php");
+    $stmt = mysqli_prepare($MYSQLI, "SELECT a.`username`, b.`email` FROM `GroupAdmins` a, `Emails` b WHERE a.`groupname`=? AND a.`username`=b.`username`");
+    mysqli_stmt_bind_param($stmt, "s", $USER['groupname']);
+    my_mysqli_stmt_execute($stmt);
+    mysqli_stmt_bind_result($stmt, $username, $email);
+    while (mysqli_stmt_fetch($stmt)){
+      send_mail($email, $username);
+    }
+    mysqli_stmt_close($stmt);
+  }
+
+  function send_mail($email, $name){
+    global $USER;
+    $mail = new PHPMailer();
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->Port = 587;
+    $mail->SMTPSecure = 'tls';
+    $mail->SMTPAuth = true;
+
+    $mail->Username = "NTUCNLteam10@gmail.com";
+    $mail->Password = "csiejizz";
+
+    $mail->setFrom('NTUCNLteam10@gmail.com', 'Homework Revolution 團隊');
+
+    $mail->addAddress($email, $name);
+
+    $mail->Subject = "[通知] 您家的小孩想要用網路"; 
+    $mail->Body = "<p>親愛的用戶 ".$name." 你好，</p>";
+    $mail->Body .= "<p>您家的小孩 ".$USER['username']." 想要使用網路，並留下了以下訊息：</p>";
+    $mail->Body .= "<p>".$_POST['description']."</p>";
+    $mail->Body .= "<p>請您盡速至 Homework Revolution 系統上審核您孩子的作業。</p>";
+    $mail->Body .= "<p>Homework Revolution 團隊</p>";
+    $mail->AltBody = "親愛的用戶 ".$name." 你好， 您家的小孩 ".$USER['username']." 想要使用網路，請您盡速至 Homework Revolution 系統上審核您孩子的作業。 Homework Revolution 團隊";
+
+    if(!$mail->Send()){
+      echo "Error".$mail->ErrorInfo;
+    }
   }
 ?>
 

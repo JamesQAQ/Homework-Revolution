@@ -63,3 +63,9 @@ CREATE TABLE IF NOT EXISTS `RequestResponse` (
   `description` text NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;
+
+CREATE TABLE IF NOT EXISTS `Emails` (
+  `id` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `username` varchar(64) NOT NULL,
+  `email` text NOT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ;

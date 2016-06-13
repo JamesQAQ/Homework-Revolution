@@ -327,6 +327,7 @@ function create_user(){
   var username = $("#username").val();
   var groupname = $("#groupname").val();
   var password = $("#password").val();
+  var email = $("#email").val();
 
   if (password != $("#password2").val()){
     $("#password").val("");
@@ -339,6 +340,7 @@ function create_user(){
     "username": username,
     "groupname": groupname,
     "password": password,
+    "email": email
   }
   if ($("#admin_on")[0].checked)
     data["admin"] = "";
